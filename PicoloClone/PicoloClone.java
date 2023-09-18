@@ -2,6 +2,7 @@ package PicoloClone;
 // 2023 Jagger Tanner
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
 /**
@@ -10,6 +11,7 @@ import java.util.Scanner;
  */
 public class PicoloClone {
 
+    public static final int GAME_LENGTH = 45;
     public static final String formatStars = "******************************************************************************************";
     public static final String formatGap = "*                                                                                        *";
     public static Scanner keyboard = new Scanner(System.in);
@@ -82,11 +84,14 @@ public class PicoloClone {
      * Populates Question ArrayList, determines players
      */
     public static void initialize() {
-        String[] questions = new String[45];
-        int[] indices = getRand(0, QuestionList.getLength());
-        // Create ArrayList of 45 random Questions
-        for (int i = 0; i < questions.length; i++) {
-            
+        ArrayList<Integer> questions = new ArrayList<>();
+        int[] random45 = new int[GAME_LENGTH];
+        for (int i = 0; i < questions.size(); i++) {
+            questions.add(i);
+        }
+        Collections.shuffle(questions);
+        for(int i = 0; i < GAME_LENGTH; i++) {
+            random45[i] = questions.get(i);
         }
 
         playGame();
@@ -132,7 +137,7 @@ public class PicoloClone {
     public static int getRand(int low, int high) {
         Random rand = new Random();
         int r = rand.nextInt(high - low);
-        return r += low;
+        return r += low += 1;
 
     }
 
